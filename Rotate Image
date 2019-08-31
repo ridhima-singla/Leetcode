@@ -1,0 +1,46 @@
+class Solution {
+public:
+    
+    void find_image(int i,int j,int n,int count_break,vector<vector<int>>& matrix)
+    {
+        int check_i,check_j,save,count=0;
+        check_i=i;
+        check_j=j;
+        save=matrix[i][j];
+        while(1)
+        {
+            int new_row=j;
+            int new_col=n-i-1;
+            int temp=matrix[new_row][new_col];
+            matrix[new_row][new_col]=save;
+            save=temp;
+            i=new_row;
+            j=new_col;            
+            if(i==check_i && j==check_j)
+            {
+                j++;
+                count++;
+                check_j=j;
+                save=matrix[i][j];
+                if(count>=count_break)
+                    break;
+            }
+        
+        }
+        return;
+    }
+    
+    
+    void rotate(vector<vector<int>>& matrix) 
+    {
+        int n=matrix.size();
+        int i=0,j=0;
+        int save=n-i-1;
+        while(i<n/2)
+        {
+            find_image(i,j,n,save-(2*i),matrix);
+            i++;j++;            
+        }
+        return;
+    }
+};
